@@ -1,9 +1,81 @@
+# lwsrbrts modernised version README
+This is my modernised version of a wonderful piece of work done by EvilVir for nginx and webdav.
+
+I've added some of the features he was going to add but seemingly didn't get to, including:
+- Delete (Files & Folders)
+- Move (Files & Folders)
+- Rename (Files & Folder)
+- Copy (Files)
+- New Folder
+
+
+To utilise these features, you'll need to enable the supported WebDAV methods with this modification to the appropriate `default.conf` file.
+
+```
+dav_methods PUT DELETE MKCOL COPY MOVE;
+```
+
+![](https://github.com/lwsrbrts/Nginx-Autoindex/raw/master/p3.jpg)
+
+While doing so, I've also added nicer looking modal boxes instead of using confirm and prompt JS functions. This is provided by using SweetAlert 2.1. Note that even though the solution is described as having no dependencies, it does rely on fontawesome for the icons and (now at least) SweetAlert.
+
+![](https://github.com/lwsrbrts/Nginx-Autoindex/raw/master/p4.jpg)
+
+I've also tidied up a few bugs relating to how folder links worked in breadcrumbs, previously relying on redirects which isn't something that reverse-proxied nginx servers handle well, often resulting in mixed content warnings and the need to turn absolute redirects in nginx off with:
+
+```
+absolute_redirect off;
+```
+For what it's worth, this was the config I added to my nginx file for an unmodified nginx container. The container uses volume mounts to pass through the nginx `default.conf` and `autoindex.xslt` from the host.
+
+```
+location /downloads {
+    alias /mnt/downloads;
+    absolute_redirect off; # required to prevent 301 redirects to absolute urls that set http
+    try_files $uri $uri/ =404;
+
+    location ~* . {
+        expires off;
+        log_not_found on;
+    }
+
+    autoindex on;
+    autoindex_format xml;
+    xslt_stylesheet /opt/autoindex.xslt;
+    autoindex_exact_size off;
+    autoindex_localtime off;
+    charset utf-8;
+
+    client_body_temp_path /tmp/;
+    dav_methods PUT DELETE MKCOL COPY MOVE;
+    add_header X-Options "WebDav";
+    create_full_put_path on;
+    dav_access user:rw group:rw all:r;
+    client_max_body_size 1000M;
+
+    access_log /var/log/nginx/webdav_access.log;
+}
+```
+
+Note that I did say this was using an unmodified nginx container (literally `nginx:latest`) but volume mounting `nginx.conf` and `default.conf` files to it.
+
+The only modification I added to `nginx.conf` was to add this line to enable the XSLT module:
+
+```
+load_module modules/ngx_http_xslt_filter_module.so;
+```
+
+## ⚠️⚠️ Warning ⚠️⚠️
+I modified the XSLT code to stop the browser downloading any file name that was clicked. This wasn't a feature I wanted on my implementation. To add this back in, you'll need to modify the XSLT to add the HTML `download=` attribute back in to the `<a href=...>` link tag of files.
+
+# End lwsrbrts modernised version README...
+
 # Nginx Autoindex
 HTML5 replacement for default Nginx Autoindex directory browser. Zero dependencies other then few standard Nginx modules, no backend scripts nor apps. Supports file uploading via WebDav and HTML5 + AJAX drag and drop!
 
 **Modern, clean look with breadcrumbs.**
 
-![](https://github.com/EvilVir/Nginx-Autoindex/raw/master/p1.jpg)
+![](https://github.com/lwsrbrts/Nginx-Autoindex/raw/master/p1.jpg)
 
 **Upload multiple files without any backend, just WebDav & AJAX.**
 
