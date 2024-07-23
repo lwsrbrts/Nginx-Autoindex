@@ -9,7 +9,7 @@ I've added some of the features he was going to add but seemingly didn't get to,
 - New Folder
 
 
-To utilise these features, you'll need to enable the supported WebDAV methods with this modification to the appropriate `default.conf` file.
+To utilise these features, you'll need to enable the supported WebDAV methods with this modification to the appropriate `default.conf` file. There's a larger example of where this goes below!
 
 ```
 dav_methods PUT DELETE MKCOL COPY MOVE;
