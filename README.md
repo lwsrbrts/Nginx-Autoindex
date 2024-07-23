@@ -26,7 +26,7 @@ I've also tidied up a few bugs relating to how folder links worked in breadcrumb
 ```
 absolute_redirect off;
 ```
-For what it's worth, this was the config I added to my nginx file for an unmodified nginx container. The container uses volume mounts to pass through the nginx `default.conf` and `autoindex.xslt` from the host.
+For what it's worth, this was the config I added to my nginx file for an unmodified nginx container. The container uses volume mounts to pass through the nginx `default.conf` and `autoindex.xslt` from the host - as well as `autoindex.xslt` of course
 
 ```
 location /downloads {
@@ -57,13 +57,15 @@ location /downloads {
 }
 ```
 
-Note that I did say this was using an unmodified nginx container (literally `nginx:latest`) but volume mounting `nginx.conf` and `default.conf` files to it.
+Note that I did say this was using an unmodified nginx container (literally `nginx:latest`) but volume mounting `nginx.conf`, `default.conf` and, obviously, `autoindex.xslt` files to it.
 
 The only modification I added to `nginx.conf` was to add this line to enable the XSLT module:
 
 ```
 load_module modules/ngx_http_xslt_filter_module.so;
 ```
+
+In terms of how this works with a container, clearly the container needs to be able to access the locations defined in the `default.conf` as the nginx user with rights to do the actions you expect WebDAV to do. To allow this, you would need to create folders _on the host_ which you will pass through to the container as volume mounts. These folders will need to be `chown`ed _on the host_ to the ID of the user in the container, which is `101`.
 
 ## ⚠️⚠️ Warning ⚠️⚠️
 I modified the XSLT code to stop the browser downloading any file name that was clicked. This wasn't a feature I wanted on my implementation. To add this back in, you'll need to modify the XSLT to add the HTML `download=` attribute back in to the `<a href=...>` link tag of files.
