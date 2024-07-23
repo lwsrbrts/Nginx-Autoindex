@@ -1,5 +1,5 @@
 # lwsrbrts modernised version README
-This is my modernised version of a wonderful piece of work done by EvilVir for nginx and webdav.
+This is my modernised version of a wonderful piece of work done by [EvilVir](https://github.com/EvilVir/) for nginx and webdav with his [Nginx-Autoindex](https://github.com/EvilVir/Nginx-Autoindex)
 
 I've added some of the features he was going to add but seemingly didn't get to, including:
 - Delete (Files & Folders)
