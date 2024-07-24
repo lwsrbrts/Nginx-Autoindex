@@ -642,7 +642,11 @@
 		html { margin: 0px; padding: 0px; height: 100%; width: 100%; }
 		body { background-color: #303030; font-family: Verdana, Geneva, sans-serif; font-size: 14px; padding: 0px; margin: 0px; height: 100%; width: 100%; }
 
-		table#contents td a { text-decoration: none; display: block; padding: 10px 10px 10px 30px; pointer: default; }
+		/*table#contents td a { text-decoration: none; display: block; padding: 10px 10px 10px 30px; pointer: default; }*/
+		table#contents tr.file td a { text-decoration: none; display: block; padding: 10px 10px 10px 30px; pointer: default; }
+        table#contents tr.directory td a { text-decoration: none; display: block; padding: 10px 10px 10px 30px; pointer: default; }
+        table#contents tr.directory td.actions a { padding-left: 40px; text-decoration: none; display: block; padding: 0 0 0 10px; pointer: default; }
+
 		table#contents { width: 70%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-width: 0px; }
 		table#contents td { padding: 0px; word-wrap: none; white-space: nowrap; }
 		table#contents td.icon, table td.size, table td.mtime, table td.actions { /*width: 1px;*/ white-space: nowrap; }
@@ -742,9 +746,9 @@
                                     <td class="mtime"><a href="{.}/"><xsl:value-of select="./@mtime" /></a></td>
                                     <td class="actions">
                                         <ul>
-                                            <li><a href="{.}/" data-action="delete" type="folder" class="fa fa-trash" title="Delete"></a></li>
                                             <li><a href="{.}/" data-action="move" type="folder" class="fa fa-arrow-right" title="Move"></a></li>
                                             <li><a href="{.}/" data-action="rename" type="folder" class="fa fa-i-cursor" title="Rename"></a></li>
+                                            <li><a href="{.}/" data-action="delete" type="folder" class="fa fa-trash" title="Delete"></a></li>
                                         </ul>
                                     </td>
                                 </tr>
