@@ -651,7 +651,7 @@
 		table#contents td.size a { color: #c1c1c1 }
 		table#contents td.mtime a { padding-right: 0px; color: #c1c1c1 }
 		table#contents tr * { color: #c1c1c1; }
-		table#contents tr:hover * { color: #efefef !important; }
+		table#contents tr:hover * { color: #efefef; }
 		table#contents tr.directory td.icon i { color: #FBDD7C !important; }
 		table#contents tr.directory.go-up td.icon i { color: #BF8EF3 !important; }
         table#contents tr.directory.go-up td.actions a[data-action='new'] { color: #FBDD7C !important; }
@@ -659,22 +659,22 @@
 		table#contents tr.separator td { padding: 10px 30px 10px 30px }
 		table#contents tr.separator td hr { display: none; }
 		table#contents tr td.actions ul { list-style-type: none; margin: 0px; padding: 0px; visibility: hidden; }
-		/*table#contents tr td.actions ul li { float: left; }*/
-		table#contents tr td.actions ul li { float: left; width: 23%; margin-right: 2%;}
+		table#contents tr td.actions ul li { display: inline-block }
         table#contents tr td.actions ul li:last-child { margin-right: 0;}
 		table#contents tr td.actions ul { visibility: visible; opacity: 0.2; }
 		table#contents tr:hover td.actions ul { visibility: visible; opacity: 1;}
 		table#contents tr td.actions ul li a { display: inline; padding: 10px 10px 10px 10px !important; }
 		table#contents tr td.actions ul li a:hover[data-action='delete'] { color: #c91c00 !important; }
-        table#contents tr td.actions ul li a:hover[data-action='copy'] { color: #227cbe !important; }
-        table#contents tr td.actions ul li a:hover[data-action='move'] { color: #22be58 !important; }
-        table#contents tr td.actions ul li a:hover[data-action='rename'] { color: #000000 !important; }
+        table#contents tr td.actions ul li a:hover[data-action='copy'] { color: #22be58 !important; }
+        table#contents tr td.actions ul li a:hover[data-action='move'] { color: #e7c925 !important; }
+        table#contents tr td.actions ul li a:hover[data-action='rename'] { color: #e7991f !important; }
 		body.nowebdav table#contents tr td.actions ul { display: none !important; }
+        li a.fa-download:hover { color: #227cbe !important; }
 
 		nav#breadcrumbs { margin-bottom: 50px; display: flex; justify-content: center; align-items: center; }
 		nav#breadcrumbs ul { list-style: none; display: inline-block; margin: 0px; padding: 0px; }
 		nav#breadcrumbs ul .icon { font-size: 14px; }
-		nav#breadcrumbs ul li { float: left; }
+		nav#breadcrumbs ul li { display: inline-block; }
 		nav#breadcrumbs ul li a { color: #FFF; display: block; background: #515151; text-decoration: none; position: relative; height: 40px; line-height: 40px; padding: 0 10px 0 5px; text-align: center; margin-right: 23px; }
 		nav#breadcrumbs ul li:nth-child(even) a { background-color: #525252; }
 		nav#breadcrumbs ul li:nth-child(even) a:before { border-color: #525252; border-left-color: transparent; }
@@ -790,10 +790,11 @@
                                     <td class="mtime"><a href="{.}"><xsl:value-of select="./@mtime" /></a></td>
                                     <td class="actions">
                                         <ul>
-                                            <li><a href="{.}" data-action="delete" class="fa fa-trash" title="Delete"></a></li>
+                                            <li><a href="{.}" download="{.}" class="fa fa-download"></a></li>
                                             <li><a href="{.}" data-action="copy" class="fa fa-copy" title="Copy"></a></li>
                                             <li><a href="{.}" data-action="move" class="fa fa-arrow-right" title="Move"></a></li>
                                             <li><a href="{.}" data-action="rename" class="fa fa-i-cursor" title="Rename"></a></li>
+                                            <li><a href="{.}" data-action="delete" class="fa fa-trash" title="Delete"></a></li>
                                         </ul>
                                     </td>
                                 </tr>
