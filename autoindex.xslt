@@ -83,18 +83,21 @@
                     document.addEventListener("DOMContentLoaded", function() {
                     
                     var xhr = new XMLHttpRequest();
-                    xhr.open('GET', document.location, true);
-                    xhr.send(null);
-                    
-                    xhr.addEventListener('readystatechange', function(e) {
-                    if (xhr.readyState == 4) {
-                    var headers = parseHttpHeaders(xhr.getAllResponseHeaders().toLowerCase());
-                    
-                    if (!headers.hasOwnProperty('x-options')){
-                    document.body.classList.add('nowebdav');
-                    }
-                    }
+                    xhr.open('HEAD', document.location, true);
+
+                    xhr.addEventListener('readystatechange', function (e) {
+                        if (xhr.readyState == 4) {
+                            var xopheader = xhr.getResponseHeader('x-options');
+                            var wd = xopheader ? xopheader.toLowerCase() : null;
+                            
+                            // Check if wd is null or not equal to 'webdav'
+                            if (wd !== 'webdav') {
+                                document.body.classList.add('nowebdav');
+                            }
+                        }
                     });
+
+                    xhr.send();
                     
                     var dropArea = document.getElementById('droparea');
                     var progressWin = document.getElementById('progresswin');
@@ -623,7 +626,7 @@
                         })
                         .catch(error => {
                             if (error === 'CANCEL') {
-                                swal("Operation cancelled", {
+                                swal("New folder operation cancelled", {
                                     icon: 'info',
                                     buttons: false,
                                     timer: 500,
@@ -637,9 +640,6 @@
                         });
                     }
                     
-                    function parseHttpHeaders(httpHeaders) {
-                    return httpHeaders.split("\n").map(x=>x.split(/: */,2)).filter(x=>x[0]).reduce((ac, x)=>{ac[x[0]] = x[1];return ac;}, {});
-                    }
                     });
                     ]]></script>
                 
