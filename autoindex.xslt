@@ -266,7 +266,7 @@
                         }
 
                         swal({
-                            title: "Are you sure?",
+                            title: "Delete. Are you sure?",
                             content: {
                                 element: "span",
                                 attributes: {
@@ -305,8 +305,9 @@
                                 xhr.send();
                             } else {
                                 swal("Delete operation cancelled", {
+                                    icon: 'info',
                                     buttons: false,
-                                    timer: 1000,
+                                    timer: 500,
                                 });
                             }
                         });
@@ -314,6 +315,7 @@
 
                     function copyFile(path, callback) {
                         swal({
+                            title: 'Copy',
                             text: 'Enter the destination path:\nThe original file name will be appended automatically.',
                             content: {
                                 element: 'input',
@@ -380,8 +382,9 @@
                             .catch(error => {
                                 if (error === 'CANCEL') {
                                     swal("Copy operation cancelled", {
+                                        icon: 'info',
                                         buttons: false,
-                                        timer: 1000,
+                                        timer: 500,
                                     });
                                     return;
                                 }
@@ -401,6 +404,7 @@
                         }
 
                         swal({
+                            title: 'Move',
                             text: warn,
                             content: {
                                 element: 'input',
@@ -468,8 +472,9 @@
                         .catch(error => {
                             if (error === 'CANCEL') {
                                 swal("Move operation cancelled", {
+                                    icon: 'info',
                                     buttons: false,
-                                    timer: 1000,
+                                    timer: 500,
                                 });
                                 return;
                             }
@@ -546,8 +551,9 @@
                         .catch(error => {
                             if (error === 'CANCEL') {
                                 swal("Rename operation cancelled", {
+                                    icon: 'info',
                                     buttons: false,
-                                    timer: 1000,
+                                    timer: 500,
                                 });
                                 return;
                             }
@@ -620,7 +626,7 @@
                                 swal("Operation cancelled", {
                                     icon: 'info',
                                     buttons: false,
-                                    timer: 1000,
+                                    timer: 500,
                                 });
                                 return;
                             }
@@ -706,7 +712,8 @@
 
 		/* SweetAlert CSS Theme */
 		.swal-modal { background-color: rgba(57,57,57,0.69); border: 3px solid rgba(100,100,100,1); }
-		.swal-title { color: #fff; margin: 0px; }
+		.swal-title { color: #fff; margin: 0; padding: 0; }
+        .swal-title:not(:last-child) { margin-bottom:0; }
 		.swal-text { margin: 22px; text-align: center; color: #fff;	}
 		.swal-icon--success__hide-corners { background: none !important; }
 		.swal-icon--success:before, .swal-icon--success:after { background: none !important; }
@@ -794,7 +801,7 @@
                                     <td class="mtime"><a href="{.}"><xsl:value-of select="./@mtime" /></a></td>
                                     <td class="actions">
                                         <ul>
-                                            <li><a href="{.}" download="{.}" class="fa fa-download"></a></li>
+                                            <li><a href="{.}" download="{.}" class="fa fa-download" title="Download"></a></li>
                                             <li><a href="{.}" data-action="copy" class="fa fa-copy" title="Copy"></a></li>
                                             <li><a href="{.}" data-action="move" class="fa fa-arrow-right" title="Move"></a></li>
                                             <li><a href="{.}" data-action="rename" class="fa fa-i-cursor" title="Rename"></a></li>
