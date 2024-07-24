@@ -678,7 +678,7 @@
         table#contents tr td.actions ul li a:hover[data-action='copy'] { color: #22be58 !important; }
         table#contents tr td.actions ul li a:hover[data-action='move'] { color: #e7c925 !important; }
         table#contents tr td.actions ul li a:hover[data-action='rename'] { color: #e7991f !important; }
-		body.nowebdav table#contents tr td.actions ul { display: none !important; }
+		body.nowebdav table#contents tr td.actions { display: none; }
         li a.fa-download:hover { color: #227cbe !important; }
 
 		nav#breadcrumbs { margin-bottom: 50px; display: flex; justify-content: center; align-items: center; }
