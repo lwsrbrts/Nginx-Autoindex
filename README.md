@@ -67,6 +67,12 @@ load_module modules/ngx_http_xslt_filter_module.so;
 
 In terms of how this works with a container, clearly the container needs to be able to access the locations defined in the `default.conf` as the nginx user with rights to do the actions you expect WebDAV to do. To allow this, you would need to create folders _on the host_ which you will pass through to the container as volume mounts. These folders will need to be `chown`ed _on the host_ to the ID of the user in the container, which is `101`.
 
+If you are using a remote file share, such as an SMB share, you can create a docker volume which defines the UID and GID of the nginx user (101) as part of the volume's creation. For example:
+
+```
+docker volume create --driver local --opt type=cifs --opt device=//<server>/<share> --opt o='username=<theuser>,password=<thepassword>,vers=3.0,uid=101,gid=101,dir_mode=0775,file_mode=0775' downloads
+```
+
 ## ⚠️⚠️ Warning ⚠️⚠️
 I modified the XSLT code to stop the browser downloading any file _name_ that is clicked. This wasn't a feature I wanted on my implementation. There is a download button instead but this won't show if your location doesn't support WebDAV. You'll need to right-click, Save As... instead.
 
